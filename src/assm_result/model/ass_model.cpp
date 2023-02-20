@@ -5,7 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "../../ext_lib/json.hpp"
+#include "../../../ext_lib/json.hpp"
 using json = nlohmann::json;
 
 class PronunciationAssessment
