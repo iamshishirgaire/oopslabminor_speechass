@@ -2,13 +2,10 @@
 // Created by shishirg on 2/18/23.
 //
 
-#ifndef LAB_JSONPP_H
-#define LAB_JSONPP_H
-
 #include <iostream>
 #include <vector>
 #include <string>
-#include "../../../ext_lib/json.hpp"
+#include "../../ext_lib/json.hpp"
 using json = nlohmann::json;
 
 class PronunciationAssessment
@@ -135,5 +132,3 @@ public:
         }
     };
 };
-
-#endif // LAB_JSONPP_H

@@ -8,10 +8,10 @@
 #include "iostream"
 using namespace std;
 
-class Utilities
+class AssessmentView
 {
 public:
-    static void objToConsole(const TranscriptionResult &trs)
+    static void viewAssessmentResult(const TranscriptionResult &trs)
     {
         cout << "--------------------------------Assessment Result------------------------------------------" << endl;
 

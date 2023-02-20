@@ -13,7 +13,7 @@ INCPATH:=$(SPEECHSDK_ROOT)/include/cxx_api $(SPEECHSDK_ROOT)/include/c_api
 LIBS:=-lMicrosoft.CognitiveServices.Speech.core -lpthread -l:libasound.so.2
 
 all: recogspeech
-recogspeech: src/main.cpp  
+recogspeech: src/*.cpp 
 	g++ $< -o  build/$@ \
 	    --std=c++17 \
 	    $(patsubst %,-I%, $(INCPATH)) \

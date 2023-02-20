@@ -1,13 +1,12 @@
 
-#include "repository/get_data.h"
-#include "core/utils/json_to_obj.h"
-#include "core/utils/obj_to_console.h"
+#include "repository/ass_repo.cpp"
+#include "models/ass_model.cpp"
+#include "core/utils/ass_view.cpp"
+
 using namespace std;
 
 int main()
 {
-    string data = getRes();
-    TranscriptionResult trs = TranscriptionResult(data);
-    Utilities::objToConsole(trs);
+    AssessmentView::viewAssessmentResult(TranscriptionResult(getRes()));
     return 0;
 }
