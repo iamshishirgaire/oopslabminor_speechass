@@ -43,11 +43,9 @@ public:
             for (auto &syll : syllables)
             {
                 cout << "                                    Syllable : " << syll.Syllable << endl;
-                cout << "                                    Fluency Score : " << syll.Pronunciation.FluencyScore << endl;
-                cout << "                                    Pronunciation Score : " << syll.Pronunciation.PronScore << endl;
-                cout << "                                    Completeness Score : " << syll.Pronunciation.CompletenessScore << endl;
                 cout << "                                    Accuracy Score : " << syll.Pronunciation.AccuracyScore << endl;
-                cout << "                                    Error Type : " << syll.Pronunciation.ErrorType << endl
+                cout << "                                    Duration : " << syll.Duration << endl;
+                cout << "                                    Offset : " << syll.Offset << endl
                      << endl;
             }
         }

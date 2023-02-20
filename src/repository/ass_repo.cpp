@@ -4,7 +4,6 @@
 #include <speechapi_cxx.h>
 #include <string>
 using namespace std;
-#include "fstream"
 using namespace Microsoft::CognitiveServices::Speech;
 using namespace Microsoft::CognitiveServices::Speech::Audio;
 
@@ -30,10 +29,6 @@ string getRes()
     auto speechRecognitionResult = recognizer->RecognizeOnceAsync().get();
 
     auto pronunciationAssessmentResultJson = speechRecognitionResult->Properties.GetProperty(PropertyId::SpeechServiceResponse_JsonResult);
-    // cout << pronunciationAssessmentResultJson;
-
-    ofstream file("history.csv");
-    file << pronunciationAssessmentResultJson;
-    string res = pronunciationAssessmentResultJson;
-    return res;
+    cout << pronunciationAssessmentResultJson;
+    return pronunciationAssessmentResultJson;
 };
