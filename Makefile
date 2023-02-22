@@ -19,3 +19,4 @@ recogspeech: src/*.cpp
 	    $(patsubst %,-I%, $(INCPATH)) \
 	    $(patsubst %,-L%, $(LIBPATH)) \
 	    $(LIBS)
+
