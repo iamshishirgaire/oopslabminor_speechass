@@ -1,9 +1,13 @@
+#include "string"
+#include "fstream"
+
 class FileOperations
 {
-
-    void ReadFIle()
+public:
+    void ReadFile(string fileName)
     {
-        // todo
+
+        ifstream(fileName);
     }
 
     void writeFile()
