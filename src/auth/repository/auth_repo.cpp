@@ -1,10 +1,21 @@
--//
-// Created by shishirg on 2/22/23.
-//
-class AuthRepo{
 
 
+class AuthRepo
+{
 
+    void signUp(string email, string password, string username)
+    {
+    }
 
+    void signIn(string email, string password)
+    {
+    }
 
+    void logOut()
+    {
+    }
+
+    AuthModel getCurrentUser()
+    {
+    }
 };

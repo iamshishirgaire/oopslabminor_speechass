@@ -5,9 +5,12 @@
 #include "core/utils/ass_view.cpp"
 
 using namespace std;
+#include "auth/controller/auth_controller.cpp
 
 int main()
 {
+
+    TranscriptionResult trs;
     AssessmentView::viewAssessmentResult(TranscriptionResult(getRes()));
     return 0;
 }

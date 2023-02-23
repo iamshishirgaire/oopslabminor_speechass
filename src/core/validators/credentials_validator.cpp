@@ -5,7 +5,12 @@ using "string"
 
     bool isEmail(string email)
     {
+        // TODO
+    }
 
-        ///
+    bool isPassword(string password)
+    {
+
+        // TODO
     }
 }
