@@ -2,6 +2,7 @@
 class AuthRepo
 {
 public:
+    string lol = "lol";
     string usersFile = "../../../database/users/users.csv";
     string currentAuthStatusFile = "../../../database/current_auth/current_auth.csv";
 
