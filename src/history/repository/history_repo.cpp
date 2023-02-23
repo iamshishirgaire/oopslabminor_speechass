@@ -17,9 +17,11 @@ public:
     }
     void postHistory(string userName, json assessmentResult)
     {
+        auto temp = fos.openFileForWriting(historyFile);
         json jsonData;
         jsonData["userName"] = userName;
         jsonData["assessmentResult"] = assessmentResult;
         fos.writeFile(historyFile, jsonData);
+        fos.closeFile(historyFile);
     }
 }

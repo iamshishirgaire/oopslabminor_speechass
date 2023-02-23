@@ -10,15 +10,15 @@ public:
         _authRepo.signUp(email, password, username);
     };
 
-    void signIn(string email, string password)
+    void signIn(string email, string password, string userName)
     {
 
-        _authRepo.signIn(email, password);
+        _authRepo.signIn(email, password, userName);
     };
 
     void logOut()
     {
-        _authRepo.logOut();
+        _authRepo.logOut(true);
     };
 
     void getCurrentUser()

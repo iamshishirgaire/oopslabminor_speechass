@@ -8,12 +8,13 @@ using namespace std;
 class FileOperations
 {
 public:
-    void readOneLine(ifstream File)
+    string readOneLine(ifstream &File)
     {
         string line;
         getline(File, line);
+        return line;
     }
-    void writeFile(ofstream& infile, json content)
+    void writeFile(ofstream &infile, json content)
     {
         infile << content;
         infile.close();
@@ -26,14 +27,16 @@ public:
     }
     static ofstream openFileForWriting(const string &fileName, bool append)
     {
-        if(append){
-            ofstream file(fileName , ios::app);
+        if (append)
+        {
+            ofstream file(fileName, ios::app);
+            return file;
         }
-        else{
-        ofstream file(fileName);
-
+        else
+        {
+            ofstream file(fileName);
+            return file;
         }
-        return file;
     }
     void closeFile(ofstream &file)
     {
@@ -54,4 +57,4 @@ public:
         }
         return jsonData;
     }
-}
+};
