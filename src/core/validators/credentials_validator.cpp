@@ -1,5 +1,6 @@
-using "string" using namespace std;
+using "string"
 #include "regex"
+    using namespace std;
 class CredentialValidator
 {
 public:
