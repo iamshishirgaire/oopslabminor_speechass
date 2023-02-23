@@ -3,6 +3,7 @@
   "files.associations": {
     "string": "cpp",
     "regex": "cpp",
-    "iosfwd": "cpp"
+    "iosfwd": "cpp",
+    "fstream": "cpp"
   }
 }

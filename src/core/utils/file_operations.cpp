@@ -8,27 +8,31 @@ using namespace std;
 class FileOperations
 {
 public:
-    void readOneLine(ofstream File)
+    void readOneLine(ifstream File)
     {
         string line;
         getline(File, line);
     }
-    void writeFile(string fileName, json content)
+    void writeFile(ofstream& infile, json content)
     {
-        ofstream infile(fileName);
         infile << content;
         infile.close();
     }
-    static ifstream openFile(const string &fileName)
+    static ifstream openFileForReading(const string &fileName)
     {
         ifstream file(fileName);
         ;
         return file;
     }
-    static ifstream openFile(const string &fileName)
+    static ofstream openFileForWriting(const string &fileName, bool append)
     {
-        ifstream file(fileName);
+        if(append){
+            ofstream file(fileName , ios::app);
+        }
+        else{
+        ofstream file(fileName);
 
+        }
         return file;
     }
     void closeFile(ofstream &file)
