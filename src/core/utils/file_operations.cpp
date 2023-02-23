@@ -6,8 +6,7 @@ class FileOperations
 public:
     void ReadFile(string fileName)
     {
-
-        ifstream(fileName);
+        // todo
     }
 
     void writeFile()
