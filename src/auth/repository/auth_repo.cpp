@@ -1,10 +1,9 @@
 #include "string"
-
 class AuthRepo
 {
 public:
-    string loginFile = "";
-    string currentStatusFile = "";
+    string usersFile = "../../../database/users/users.csv";
+    string currentAuthStatusFile = "../../../database/current_auth/current_auth.csv";
 
 public:
     bool is(const std::string email, const std::string username)
