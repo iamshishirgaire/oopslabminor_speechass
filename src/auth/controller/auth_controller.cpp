@@ -12,13 +12,17 @@ class AuthController
 
     void signIn(string email, string password)
     {
+
+        _authRepo.signIn(email, password);
     }
 
     void logOut()
     {
+        _authRepo.logOut();
     }
 
     AuthModel getCurrentUser()
     {
+        _authRepo.getCurrentUser();
     }
 }
