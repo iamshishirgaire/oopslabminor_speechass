@@ -1,40 +1,36 @@
 #include "string"
+using json = nlohmann::json;
+#include "../../core/utils/file_operations.cpp"
+#include "../../core/validators/credentials_validator.cpp"
+
+
 class AuthRepo
 {
-public:
-    string lol = "lol";
-    string usersFile = "../../../database/users/users.csv";
-    string currentAuthStatusFile = "../../../database/current_auth/current_auth.csv";
+    FileOperations fos;
+    CredentialValidator cv;
+
 
 public:
-    bool is(const std::string email, const std::string username)
+    const string usersFile = "../../../database/users/users.csv";
+    const string currentAuthStatusFile = "../../../database/current_auth/current_auth.csv";
+
+    bool isUserExists(static const std::string email, static const std::string username)
     {
-        ifstream file("logins.csv");
+        ifstream file(usersFile);
         string line;
         while (getline(file, line))
-        {
-            size_t pos = line.find(',');
-            string user = line.substr(0, pos);
-            size_t pos2 = line.find(',', pos + 1);
-            string pass = line.substr(pos + 1, pos2 - pos - 1);
-            string mail = line.substr(pos2 + 1);
-            if (mail == email || user == this->username)
-            {
-                file.close();
-                return true;
-            }
+        {   
+            json jsonData = json::parse(line);
+            if(jsonData[username]== username &&jsonData[email] == email)
+            return true;
         }
-        file.close();
+        fos.closeFile(file);
         return false;
     }
     bool signUp(string email, string password, string username)
     {
-        string fileName;
-        bool emailValid = false;
-        bool userEmailExists = false;
-        emailValid = emailValidation(this->email);
-        userEmailExists = checkExistingRecord();
-        if (!emailValid)
+     
+        if (!c)
         {
             cout << "email can't be accepted";
             return;
@@ -75,3 +71,8 @@ public:
     {
     }
 };
+
+// json jsonData;
+//         jsonData["username"] = username;
+//         jsonData["password"] = password;        
+//         jsonData["email"] = email;
