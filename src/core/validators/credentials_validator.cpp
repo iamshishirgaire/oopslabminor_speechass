@@ -1,4 +1,4 @@
-using "string"
+using "string" using namespace std;
 #include "regex"
 class CredentialValidator
 {

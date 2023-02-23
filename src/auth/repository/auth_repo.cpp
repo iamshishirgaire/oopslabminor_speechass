@@ -3,12 +3,11 @@ using json = nlohmann::json;
 #include "../../core/utils/file_operations.cpp"
 #include "../../core/validators/credentials_validator.cpp"
 
-
 class AuthRepo
 {
+
     FileOperations fos;
     CredentialValidator cv;
-
 
 public:
     const string usersFile = "../../../database/users/users.csv";
@@ -19,17 +18,17 @@ public:
         ifstream file(usersFile);
         string line;
         while (getline(file, line))
-        {   
+        {
             json jsonData = json::parse(line);
-            if(jsonData[username]== username &&jsonData[email] == email)
-            return true;
+            if (jsonData[username] == username && jsonData[email] == email)
+                return true;
         }
         fos.closeFile(file);
         return false;
     }
     bool signUp(string email, string password, string username)
     {
-     
+
         if (!c)
         {
             cout << "email can't be accepted";
@@ -74,5 +73,5 @@ public:
 
 // json jsonData;
 //         jsonData["username"] = username;
-//         jsonData["password"] = password;        
+//         jsonData["password"] = password;
 //         jsonData["email"] = email;
