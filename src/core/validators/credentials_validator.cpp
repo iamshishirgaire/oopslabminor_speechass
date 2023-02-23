@@ -1,6 +1,6 @@
 using "string"
 #include "regex"
-    class CredentialValdator
+class CredentialValidator
 {
 public:
     bool isValidEmail(const std::string &email)
