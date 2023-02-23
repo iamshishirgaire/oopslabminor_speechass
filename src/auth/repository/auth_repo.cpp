@@ -3,11 +3,12 @@ using json = nlohmann::json;
 #include "../../core/utils/file_operations.cpp"
 #include "../../core/validators/credentials_validator.cpp"
 
+
 class AuthRepo
 {
-
     FileOperations fos;
     CredentialValidator cv;
+
 
 public:
     const string usersFile = "../../../database/users/users.csv";
@@ -18,60 +19,78 @@ public:
         ifstream file(usersFile);
         string line;
         while (getline(file, line))
-        {
+        {   
             json jsonData = json::parse(line);
-            if (jsonData[username] == username && jsonData[email] == email)
+            if(jsonData[username]== username &&jsonData[email] == email)
                 return true;
         }
         fos.closeFile(file);
         return false;
     }
-    bool signUp(string email, string password, string username)
+    void signUp(string email, string password, string username)
     {
-
-        if (!c)
+        if (!cv.isValidEmail(email))
         {
             cout << "email can't be accepted";
             return;
         }
-        if (userEmailExists)
+        else if (!cv.isValidPassword(password))
         {
             cout << "email already in record";
             return;
         }
-        if (emailValid && !userEmailExists)
+        else if(isUserExists(email, username)){
+            cout<<"User already exist";
+            return;
+        }
+        else
         {
-            ofstream outFile("logins.csv", ios::app);
-            if (outFile.is_open())
-            {
-                outFile << this->username << "," << this->password << "," << this->email << endl;
-                fileName = "userFolder/" + this->username + ".csv";
-                ofstream user(fileName);
-                user.close();
-                cout << "User created successfully." << endl;
-                outFile.close();
-            }
-            else
-            {
-                cerr << "Error opening file." << endl;
-            }
+            auto logInFile = fos.openFileForWriting(usersFile, true);
+            json jsonData;
+            jsonData["username"] = username;
+            jsonData["password"] = password;        
+            jsonData["email"] = email;
+            fos.writeFile(usersFile, jsonData);
+            fos.closeFile(logInFile);
         }
     }
-
     void signIn(string email, string password)
     {
+        ifstream file(usersFile);
+        string line;
+        while (getline(file, line))
+        {   
+            json jsonData = json::parse(line);
+            if(jsonData[email]== email &&jsonData[password] == password)
+            {
+                json loggedInData;
+                loggedInData["loggedInStatus"] = true;
+                loggedInData["email"] = email;
+                loggedInData["username"] = jsonData[username];
+                loggedInData["password"] = password;
+                auto file = fos.openFileForWriting(currentAuthStatusFile, false);
+                fos.writeFile(file, loggedInData);
+                fos.closeFile(file);
+            }
+    }
+    void logOut(bool true)
+    {
+        json jsonData;
+        loggedInData["loggedInStatus"] = false;
+        loggedInData["email"] = "";
+        loggedInData["username"] = "";
+        loggedInData["password"] = "";
+        auto file = fos.openFileForWriting(currentAuthStatusFile, false);
+        fos.writeFile(file,jsonData);
+        fos.closeFile(file);
     }
 
-    void logOut()
+    json getCurrentUser()
     {
-    }
-
-    void getCurrentUser()
-    {
+        ifstream file(currentAuthStatusFile);
+        string line;
+        getline(file, line);
+        json jsonData = json::parse(line);
+        return jsonData;
     }
 };
-
-// json jsonData;
-//         jsonData["username"] = username;
-//         jsonData["password"] = password;
-//         jsonData["email"] = email;

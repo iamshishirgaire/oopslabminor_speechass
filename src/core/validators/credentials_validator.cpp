@@ -1,6 +1,6 @@
 using "string"
 #include "regex"
-    using namespace std;
+using namespace std;
 class CredentialValidator
 {
 public:
@@ -10,7 +10,7 @@ public:
         return std::regex_match(email, pattern);
     }
 
-    bool isPassword(const string &password)
+    bool isValidPassword(const string &password)
     {
         return password.length() >= 7;
     };
