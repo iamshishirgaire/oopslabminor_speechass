@@ -2,6 +2,7 @@
   "C_Cpp.errorSquiggles": "disabled",
   "files.associations": {
     "string": "cpp",
-    "regex": "cpp"
+    "regex": "cpp",
+    "iosfwd": "cpp"
   }
 }
