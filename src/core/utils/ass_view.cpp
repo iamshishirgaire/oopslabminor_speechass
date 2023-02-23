@@ -2,9 +2,6 @@
 // Created by shishirg on 2/19/23.
 //
 
-#ifndef LAB_OBJ_TO_CONSOLE_H
-#define LAB_OBJ_TO_CONSOLE_H
-
 #include "iostream"
 using namespace std;
 
@@ -51,4 +48,3 @@ public:
         }
     }
 };
-#endif // LAB_OBJ_TO_CONSOLE_H

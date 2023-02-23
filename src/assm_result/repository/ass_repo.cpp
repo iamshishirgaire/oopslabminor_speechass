@@ -17,10 +17,10 @@ string getRes()
 
     speechConfig->SetSpeechRecognitionLanguage("en-US");
 
-    auto pronunciationAssessmentConfig = PronunciationAssessmentConfig::CreateFromJson("{\"referenceText\":\"good morning\",\"gradingSystem\":\"HundredMark\",\"granularity\":\"Phoneme\",\"phonemeAlphabet\":\"IPA\"}");
+    auto pronunciationAssessmentConfig = PronunciationAssessmentConfig::CreateFromJson("{\"referenceText\":\"i like apples\",\"gradingSystem\":\"HundredMark\",\"granularity\":\"Phoneme\",\"phonemeAlphabet\":\"IPA\"}");
 
     // auto audioConfig = AudioConfig::FromDefaultMicrophoneInput();
-    auto audioConfig = AudioConfig::FromWavFileInput("assets/test1.wav");
+    auto audioConfig = AudioConfig::FromWavFileInput("assets/test2.wav");
 
     auto recognizer = SpeechRecognizer::FromConfig(speechConfig, audioConfig);
 

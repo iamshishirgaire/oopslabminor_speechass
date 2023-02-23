@@ -1,8 +1,8 @@
-
+#include "string"
 
 class AuthRepo
 {
-
+public:
     void signUp(string email, string password, string username)
     {
     }
@@ -15,7 +15,7 @@ class AuthRepo
     {
     }
 
-    AuthModel getCurrentUser()
+    void getCurrentUser()
     {
     }
 };

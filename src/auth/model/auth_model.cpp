@@ -16,7 +16,7 @@ public:
         this->email = Email;
         this->password = Password;
     }
-    json toJson(&AuthModel authModel)
+    void toJson(AuthModel authModel)
     {
         json jsonAuth;
         jsonAuth["name"] = name;
@@ -24,10 +24,10 @@ public:
         jsonAuth["password"] = password;
     }
 
-    AuthModel(&json authJson)
+    AuthModel(json authJson)
     {
         this->name = authJson["name"];
         this->email = authJson["email"];
         this->password = authJson["password"];
     }
-}
+};
