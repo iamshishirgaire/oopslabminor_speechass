@@ -14,9 +14,9 @@ public:
     {
 
         return _hr.getHistory();
-    }
+    };
     void postHistory(string userName, json assessmentResult)
     {
         _hr.postHistory();
-    }
-}
+    };
+};

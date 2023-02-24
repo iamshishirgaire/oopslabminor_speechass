@@ -3,6 +3,7 @@
 //
 
 #include "iostream"
+#include "../../assm_result/model/ass_model.cpp"
 using namespace std;
 
 class AssessmentView

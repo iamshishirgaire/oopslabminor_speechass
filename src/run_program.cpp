@@ -1,16 +1,13 @@
-
-#include "string"
-#include "auth/controller/auth_controller.cpp"
-#include "auth/model/auth_model.cpp"
-#include "core/utils/ass_view.cpp"
-#include "assm_result/model/ass_model.cpp
-#include "assm_result/controller/assm_controller.cpp"
 #include "iostream"
-using namespace std;
+#include "string"
 
+#include "assm_result/controller/assm_controller.cpp"
+#include "core/utils/ass_view.cpp"
+
+using namespace std;
 class AssessmentProgram
 {
-    bool isLogged false;
+    bool isLogged = true;
 
 public:
     void runProgram()
@@ -18,16 +15,22 @@ public:
         if (isLogged)
         {
             string referenceText;
-            cin << "Please Enter the refrence text : " << referenceText;
-            AssessmentController::getAssessmentRes(TranscriptionResult(getRes()));
+            cout << "Please Enter the refrence text : ";
+            cin >> referenceText;
+            auto res = AssessmentController::getAssessmentRes(referenceText);
+            AssessmentView::viewAssessmentResult(TranscriptionResult(res));
         }
         else if (!isLogged)
         {
-            AuthModel user;
-            cin << "Please enter your name : " << user.name;
-            cin << "Please enter your email : " << user.email;
-            cin << "Please enter your password :  " << user.password;
-            AuthController().signUp(user);
+            // AuthModel user;
+
+            // cout << "Please enter your name : ";
+            // cin >> user.name;
+            // cout << "Please enter your email : ";
+            // cin >> user.email;
+            // cout << "Please enter your password : ";
+            // cin >> user.password;
+            // AuthController().signUp(user);
         }
-    }
-}
+    };
+};

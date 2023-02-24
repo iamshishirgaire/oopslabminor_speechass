@@ -3,22 +3,23 @@
 #include "../model/auth_model.cpp"
 class AuthController
 {
-public:
     AuthRepo _authRepo;
-    void signUp(AuthModel &user)
+
+public:
+    void signup(AuthModel &user)
     {
         _authRepo.signUp(user.email, user.password, user.name);
     };
-    void signIn(AuthModel &user)
+    void signin(AuthModel &user)
     {
         _authRepo.signIn(user.email, user.password, user.name);
     };
-    void logOut()
+    void logout()
     {
         _authRepo.logOut(true);
     };
 
-    void getCurrentUser()
+    void getcurrentUser()
     {
         _authRepo.getCurrentUser();
     };

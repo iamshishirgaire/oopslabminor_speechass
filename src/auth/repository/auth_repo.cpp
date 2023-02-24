@@ -1,9 +1,10 @@
 #include "string"
 #include "../../../ext_lib/json.hpp"
-using json = nlohmann::json;
-using namespace std;
+#include "iostream"
 #include "../../core/utils/file_operations.cpp"
 #include "../../core/validators/credentials_validator.cpp"
+using namespace std;
+using json = nlohmann::json;
 
 class AuthRepo
 {

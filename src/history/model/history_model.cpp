@@ -18,11 +18,11 @@ public:
         jsonData["userName"] = userName;
         jsonData["assessmentResult"] = assessmentResult;
         return jsonData;
-    }
+    };
 
     History(json jsonData)
     {
         userName = jsonData["userName"];
         assessmentResult = jsonData["assessmentResult"];
-    }
-}
+    };
+};

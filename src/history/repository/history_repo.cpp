@@ -7,14 +7,14 @@ using json = nlohmann::json;
 
 class HistoryRepo
 {
-    string historyFile = '../../../database/history/history.csv';
+    string historyFile = "../../../database/history/history.csv";
     FileOperations fos;
 
 public:
     vector<json> getHistory(string userName)
     {
         return fos.readEntireFile(historyFile);
-    }
+    };
     void postHistory(string userName, json assessmentResult)
     {
         auto temp = fos.openFileForWriting(historyFile);
@@ -23,5 +23,5 @@ public:
         jsonData["assessmentResult"] = assessmentResult;
         fos.writeFile(historyFile, jsonData);
         fos.closeFile(historyFile);
-    }
-}
+    };
+};
