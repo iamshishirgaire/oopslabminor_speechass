@@ -6,7 +6,7 @@ class AssessmentController
 {
 
 public:
-    string getAssessmentRes(string refrenceText)
+    static string getAssessmentRes(string refrenceText)
     {
         getRes(refrenceText);
     }

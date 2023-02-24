@@ -1,21 +1,19 @@
 #include "string"
 #include "../model/auth_model.cpp"
 #include "../repository/auth_repo.cpp"
+#include "../model/auth_model.cpp"
 class AuthController
 {
 public:
     AuthRepo _authRepo;
-    void signUp(string email, string password, string username)
+    void signUp(AuthModel &user)
     {
-        _authRepo.signUp(email, password, username);
+        _authRepo.signUp(user.email, user.password, user.name);
     };
-
-    void signIn(string email, string password, string userName)
+    void signIn(AuthModel &user)
     {
-
-        _authRepo.signIn(email, password, userName);
+        _authRepo.signIn(user.email, user.password, user.name);
     };
-
     void logOut()
     {
         _authRepo.logOut(true);
