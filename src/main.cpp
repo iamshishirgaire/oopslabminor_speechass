@@ -8,6 +8,5 @@ using namespace std;
 int main()
 {
 
-    AssessmentView::viewAssessmentResult(TranscriptionResult(getRes()));
     return 0;
 }

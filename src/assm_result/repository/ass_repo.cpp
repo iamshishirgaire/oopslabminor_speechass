@@ -7,7 +7,7 @@ using namespace std;
 using namespace Microsoft::CognitiveServices::Speech;
 using namespace Microsoft::CognitiveServices::Speech::Audio;
 
-string getRes()
+string getRes(string refrenceText)
 {
     // This example requires environment variables named "SPEECH_KEY" and "SPEECH_REGION"
     auto speechKey = "e1c8701870cc4f6489dc9013048dd3f3";
@@ -19,8 +19,8 @@ string getRes()
 
     auto pronunciationAssessmentConfig = PronunciationAssessmentConfig::CreateFromJson("{\"referenceText\":\"i like apples\",\"gradingSystem\":\"HundredMark\",\"granularity\":\"Phoneme\",\"phonemeAlphabet\":\"IPA\"}");
 
-    // auto audioConfig = AudioConfig::FromDefaultMicrophoneInput();
-    auto audioConfig = AudioConfig::FromWavFileInput("assets/test2.wav");
+    auto audioConfig = AudioConfig::FromDefaultMicrophoneInput();
+    // auto audioConfig = AudioConfig::FromWavFileInput("assets/test2.wav");
 
     auto recognizer = SpeechRecognizer::FromConfig(speechConfig, audioConfig);
 
