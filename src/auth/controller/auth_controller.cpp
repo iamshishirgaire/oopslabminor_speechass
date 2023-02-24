@@ -1,5 +1,4 @@
 #include "string"
-#include "../model/auth_model.cpp"
 #include "../repository/auth_repo.cpp"
 #include "../model/auth_model.cpp"
 class AuthController
