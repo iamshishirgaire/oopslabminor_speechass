@@ -1,13 +1,16 @@
 #include "iostream"
 #include "string"
-
 #include "assm_result/controller/assm_controller.cpp"
 #include "auth/controller/auth_controller.cpp"
 #include "core/utils/ass_view.cpp"
+#include "history/controller/history_controller.cpp"
 
 using namespace std;
 class AssessmentProgram
 {
+    AuthController _ac;
+    HistoryController _hr;
+
     bool isLogged = true;
 
 public:
@@ -15,6 +18,7 @@ public:
     {
         if (isLogged)
         {
+
             string referenceText;
             cout << "Please Enter the refrence text : ";
             cin >> referenceText;

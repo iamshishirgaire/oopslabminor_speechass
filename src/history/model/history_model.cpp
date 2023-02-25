@@ -20,7 +20,7 @@ public:
         return jsonData;
     };
 
-    History(json jsonData)
+    explicit History(json jsonData)
     {
         userName = jsonData["userName"];
         assessmentResult = jsonData["assessmentResult"];

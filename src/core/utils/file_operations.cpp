@@ -1,3 +1,7 @@
+
+#ifndef _FILEOPERATIONS_
+#define _FILEOPERATIONS_
+
 #include "string"
 #include <fstream>
 #include "../../../ext_lib/json.hpp"
@@ -58,3 +62,5 @@ public:
         return jsonData;
     }
 };
+
+#endif // _FILEOPERATIONS_

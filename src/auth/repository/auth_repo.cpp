@@ -8,13 +8,12 @@ using json = nlohmann::json;
 
 class AuthRepo
 {
-    FileOperations fos;
     CredentialValidator cv;
     const string usersFile = "../../../database/users/users.csv";
     const string currentAuthStatusFile = "../../../database/current_auth/current_auth.csv";
 
 public:
-    bool isUserExists(const std::string email, const std::string username)
+    bool isUserExists(const std::string &email, const std::string &username)
     {
         ifstream file(usersFile);
         string line;
@@ -24,10 +23,10 @@ public:
             if (jsonData[username] == username && jsonData[email] == email)
                 return true;
         }
-        fos.closeFile(file);
+        FileOperations::closeFile(file);
         return false;
     }
-    void signUp(string email, string password, string username)
+    void signUp(const string &email, const string &password, const string &username)
     {
         if (!cv.isValidEmail(email))
         {
@@ -46,20 +45,20 @@ public:
         }
         else
         {
-            auto logInFile = fos.openFileForWriting(usersFile, true);
+            auto logInFile = FileOperations::openFileForWriting(usersFile, true);
             json jsonData;
             jsonData["username"] = username;
             jsonData["password"] = password;
             jsonData["email"] = email;
-            fos.writeFile(logInFile, jsonData);
-            fos.closeFile(logInFile);
+            FileOperations::writeFile(logInFile, jsonData);
+            FileOperations::closeFile(logInFile);
         }
     }
-    void signIn(string email, string password, string userName)
+    void signIn(const string &email, const string &password, const string &userName)
     {
-        auto file = fos.openFileForReading(usersFile);
+        auto readFile = FileOperations::openFileForReading(usersFile);
         string line;
-        while (getline(file, line))
+        while (getline(readFile, line))
         {
             json jsonData = json::parse(line);
             if (jsonData[email] == email && jsonData[password] == password)
@@ -69,9 +68,9 @@ public:
                 loggedInData["email"] = email;
                 loggedInData["username"] = jsonData[userName];
                 loggedInData["password"] = password;
-                auto file = fos.openFileForWriting(currentAuthStatusFile, false);
-                fos.writeFile(file, loggedInData);
-                fos.closeFile(file);
+                auto file = FileOperations::openFileForWriting(currentAuthStatusFile, false);
+                FileOperations::writeFile(file, loggedInData);
+                FileOperations::closeFile(file);
             }
         }
     };
@@ -79,15 +78,15 @@ public:
     {
         json jsonData;
 
-        auto file = fos.openFileForWriting(currentAuthStatusFile, openForWriting);
-        fos.writeFile(file, jsonData);
-        fos.closeFile(file);
+        auto file = FileOperations::openFileForWriting(currentAuthStatusFile, openForWriting);
+        FileOperations::writeFile(file, jsonData);
+        FileOperations::closeFile(file);
     };
 
     json getCurrentUser()
     {
-        auto res = fos.openFileForReading(currentAuthStatusFile);
-        string line = fos.readOneLine(res);
+        auto res = FileOperations::openFileForReading(currentAuthStatusFile);
+        string line = FileOperations::readOneLine(res);
         json jsonData = json::parse(line);
         return jsonData;
     };

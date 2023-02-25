@@ -10,13 +10,13 @@ class HistoryController
     HistoryRepo _hr;
 
 public:
-    vector<json> getHistory(string userName)
+    vector<json> getHistory(const string &userName)
     {
 
-        return _hr.getHistory();
+        return _hr.getHistory(userName);
     };
-    void postHistory(string userName, json assessmentResult)
+    void postHistory(const string &userName, const json &assessmentResult)
     {
-        _hr.postHistory();
+        _hr.postHistory(userName, assessmentResult);
     };
 };
