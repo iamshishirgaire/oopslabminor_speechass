@@ -8,13 +8,13 @@ using namespace std;
 class FileOperations
 {
 public:
-    string readOneLine(ifstream &File)
+    static string readOneLine(ifstream &File)
     {
         string line;
         getline(File, line);
         return line;
     }
-    void writeFile(ofstream &infile, json content)
+    static void writeFile(ofstream &infile, const json &content)
     {
         infile << content;
         infile.close();
@@ -38,15 +38,15 @@ public:
             return file;
         }
     }
-    void closeFile(ofstream &file)
+    static void closeFile(ofstream &file)
     {
         file.close();
     }
-    void closeFile(ifstream &file)
+    static void closeFile(ifstream &file)
     {
         file.close();
     }
-    vector<json> readEntireFile(ifstream &file)
+    static vector<json> readEntireFile(ifstream &file)
     {
         string line;
         vector<json> jsonData;

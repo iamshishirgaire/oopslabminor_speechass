@@ -20,10 +20,10 @@ public:
         password = Password;
     };
     AuthModel(){};
-    json toJson(AuthModel &authModel)
+    json toJson()
     {
         json jsonAuth;
-        jsonAuth["name"] = name;
+        jsonAuth["name"] = password;
         jsonAuth["email"] = email;
         jsonAuth["password"] = password;
         return jsonAuth;
