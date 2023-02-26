@@ -3,6 +3,9 @@
 #include <stdlib.h>
 #include <speechapi_cxx.h>
 #include <string>
+#include "../../../ext_lib/json.hpp"
+using namespace std;
+using json = nlohmann::json;
 using namespace std;
 using namespace Microsoft::CognitiveServices::Speech;
 using namespace Microsoft::CognitiveServices::Speech::Audio;
@@ -17,14 +20,13 @@ string getRes(string refrenceText)
 
     speechConfig->SetSpeechRecognitionLanguage("en-US");
 
-    auto pronunciationAssessmentConfig = PronunciationAssessmentConfig::CreateFromJson("{\"referenceText\":\"" + refrenceText + "\",\"gradingSystem\":\"HundredMark\",\"granularity\":\"Phoneme\",\"phonemeAlphabet\":\"IPA\"}");
-
     auto audioConfig = AudioConfig::FromDefaultMicrophoneInput();
+    auto pronunciationAssessmentConfig = PronunciationAssessmentConfig::CreateFromJson("{\"referenceText\":\"" + refrenceText + "\",\"gradingSystem\":\"HundredMark\",\"granularity\":\"Phoneme\",\"phonemeAlphabet\":\"IPA\"}");
     // auto audioConfig = AudioConfig::FromWavFileInput("assets/test2.wav");
+    std::cout << "Speak into your microphone.\n";
 
     auto recognizer = SpeechRecognizer::FromConfig(speechConfig, audioConfig);
 
-    // std::cout << "Speak into your microphone.\n";
     pronunciationAssessmentConfig->ApplyTo(recognizer);
     auto speechRecognitionResult = recognizer->RecognizeOnceAsync().get();
 
