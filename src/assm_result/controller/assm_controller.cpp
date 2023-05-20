@@ -6,8 +6,8 @@ class AssessmentController
 {
 
 public:
-    static string getAssessmentRes(string refrenceText)
+    static string getAssessmentRes()
     {
-        return getRes(refrenceText);
+        return getRes();
     };
 };

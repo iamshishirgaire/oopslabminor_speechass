@@ -16,11 +16,16 @@ public:
     };
     void logout()
     {
-        _authRepo.logOut(true);
+        _authRepo.logOut();
     };
 
-    void getcurrentUser()
+    string getcurrentUser()
     {
-        _authRepo.getCurrentUser();
+        return _authRepo.getCurrentUser();
     };
+
+    bool isLoggedin()
+    {
+        return _authRepo.isLoggedIn();
+    }
 };

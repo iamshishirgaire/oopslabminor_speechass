@@ -64,9 +64,8 @@ public:
             if (jsonData[email] == email && jsonData[password] == password)
             {
                 json loggedInData;
-                loggedInData["loggedInStatus"] = true;
                 loggedInData["email"] = email;
-                loggedInData["username"] = jsonData[userName];
+                loggedInData["username"] = userName;
                 loggedInData["password"] = password;
                 auto file = FileOperations::openFileForWriting(currentAuthStatusFile, false);
                 FileOperations::writeFile(file, loggedInData);
@@ -74,11 +73,10 @@ public:
             }
         }
     };
-    void logOut(bool openForWriting)
+    void logOut()
     {
         json jsonData;
-
-        auto file = FileOperations::openFileForWriting(currentAuthStatusFile, openForWriting);
+        auto file = FileOperations::openFileForWriting(currentAuthStatusFile, false);
         FileOperations::writeFile(file, jsonData);
         FileOperations::closeFile(file);
     };
@@ -90,4 +88,11 @@ public:
         json jsonData = json::parse(line);
         return jsonData;
     };
+
+    bool isLoggedIn()
+    {
+        json data = getCurrentUser();
+        auto res = data["email"].empty();
+        return res;
+    }
 };

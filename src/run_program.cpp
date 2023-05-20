@@ -11,18 +11,15 @@ class AssessmentProgram
     AuthController _ac;
     HistoryController _hr;
 
-    bool isLogged = true;
-
 public:
     void runProgram()
     {
+        bool isLogged = _ac.isLoggedin();
+
         if (isLogged)
         {
 
-            string referenceText;
-            cout << "Please Enter the refrence text : ";
-            cin >> referenceText;
-            auto res = AssessmentController::getAssessmentRes(referenceText);
+            auto res = AssessmentController::getAssessmentRes();
             AssessmentView::viewAssessmentResult(TranscriptionResult(res));
         }
         else if (!isLogged)
