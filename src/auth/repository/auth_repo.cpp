@@ -9,8 +9,8 @@ using json = nlohmann::json;
 class AuthRepo
 {
     CredentialValidator cv;
-    const string usersFile = "../../../database/users/users.csv";
-    const string currentAuthStatusFile = "../../../database/current_auth/current_auth.csv";
+    const string usersFile = "/home/iamshishirg/Documents/oopslabminor_speechass/database/users/users.csv";
+    const string currentAuthStatusFile = "/home/iamshishirg/Documents/oopslabminor_speechass/database/current_auth/current_auth.csv";
 
 public:
     bool isUserExists(const std::string &email, const std::string &username)
@@ -30,21 +30,21 @@ public:
     {
         if (!cv.isValidEmail(email))
         {
-            cout << "email can't be accepted";
+            cout << "Email can't be accepted";
             return;
         }
         else if (!cv.isValidPassword(password))
         {
-            cout << "email already in record";
+            cout << "Minimum password should be of 8 characters.";
             return;
         }
         else if (isUserExists(email, username))
         {
             cout << "User already exist";
-            return;
         }
         else
         {
+
             auto logInFile = FileOperations::openFileForWriting(usersFile, true);
             json jsonData;
             jsonData["username"] = username;
@@ -56,6 +56,8 @@ public:
     }
     void signIn(const string &email, const string &password, const string &userName)
     {
+
+        // TODO :  refactor the signup logic
         auto readFile = FileOperations::openFileForReading(usersFile);
         string line;
         while (getline(readFile, line))

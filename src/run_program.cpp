@@ -14,25 +14,87 @@ class AssessmentProgram
 public:
     void runProgram()
     {
+
         bool isLogged = _ac.isLoggedin();
 
         if (isLogged)
         {
+            int answer;
+            cout << "Select one of the options..............\n";
+            cout << "1. Assessment\n";
+            cout << "2. History\n";
+            cout << "3. Logout\n";
+            cout << "4. Exit\n";
+            cout << "Select your option [1-4] : ";
+            cin >> answer;
+            if (answer == 1)
+            {
+                AssessmentView::viewAssessmentResult(TranscriptionResult(AssessmentController::getAssessmentRes()));
+            }
+            else if (answer == 2)
+            {
+                cout << "Your history : \n";
 
-            auto res = AssessmentController::getAssessmentRes();
-            AssessmentView::viewAssessmentResult(TranscriptionResult(res));
+                json user = _ac.getcurrentUser();
+                string name = user["name"];
+                cout << _hr.getHistory(name);
+            }
+            else if (answer == 3)
+            {
+                _ac.logout();
+                exit(0);
+            }
+            else if (answer == 4)
+            {
+                exit(0);
+            }
+
+            else
+            {
+                cout << "Invalid input\n";
+            }
         }
         else if (!isLogged)
         {
-            AuthModel user;
+            bool isAlreadyAUser;
+            cout << "Already a user ?[Y/N]";
+            string res;
+            cin >> res;
+            isAlreadyAUser = res == "Y" || "y" ? true : false;
+            if (!isAlreadyAUser)
+            {
+                cout << "Signing in ......... \n";
 
-            cout << "Please enter your name : ";
-            cin >> user.name;
-            cout << "Please enter your email : ";
-            cin >> user.email;
-            cout << "Please enter your password : ";
-            cin >> user.password;
-            AuthController().signup(user);
+                AuthModel user;
+                cout << "Please enter your email : \n";
+                getline(cin, user.email);
+                cout << "\n";
+
+                cout << "Please enter your password : \n";
+                getline(cin, user.password);
+                cout << "\n Signing up .................";
+
+                _ac.signin(user);
+            }
+
+            else
+            {
+                cout << "Signing up ......... \n";
+                AuthModel user;
+
+                cout << "Please enter your name : ";
+                getline(cin, user.name);
+                cout << "\n";
+                cout << "Please enter your email : ";
+                getline(cin, user.email);
+                cout << "\n";
+
+                cout << "Please enter your password : ";
+                getline(cin, user.password);
+                cout << "\n Signing in .................";
+
+                AuthController().signup(user);
+            }
         }
     };
 };

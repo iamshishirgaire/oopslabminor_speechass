@@ -7,7 +7,7 @@ using json = nlohmann::json;
 
 class HistoryRepo
 {
-    string historyFile = "../../../database/history/history.csv";
+    string historyFile = "/home/iamshishirg/Documents/oopslabminor_speechass/database/history/history.csv";
 
 public:
     vector<json> getHistory(const string &userName)
