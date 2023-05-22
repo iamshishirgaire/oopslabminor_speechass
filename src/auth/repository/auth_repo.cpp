@@ -46,12 +46,22 @@ public:
         {
 
             auto logInFile = FileOperations::openFileForWriting(usersFile, true);
+            auto AuthFile = FileOperations::openFileForWriting(currentAuthStatusFile, false);
+
             json jsonData;
             jsonData["username"] = username;
             jsonData["password"] = password;
             jsonData["email"] = email;
+
             FileOperations::writeFile(logInFile, jsonData);
+            json AuthStatus;
+            AuthStatus["email"] = email;
+            AuthStatus["username"] = username;
+            AuthStatus["password"] = password;
+            FileOperations::writeFile(AuthFile, AuthStatus);
+
             FileOperations::closeFile(logInFile);
+            FileOperations::closeFile(AuthFile);
         }
     }
     void signIn(const string &email, const string &password, const string &userName)
@@ -78,8 +88,14 @@ public:
     void logOut()
     {
         json jsonData;
+        jsonData["email"] = " ";
+        jsonData["username"] = " ";
+        jsonData["password"] = " ";
+
         auto file = FileOperations::openFileForWriting(currentAuthStatusFile, false);
+
         FileOperations::writeFile(file, jsonData);
+
         FileOperations::closeFile(file);
     };
 
@@ -88,13 +104,15 @@ public:
         auto res = FileOperations::openFileForReading(currentAuthStatusFile);
         string line = FileOperations::readOneLine(res);
         json jsonData = json::parse(line);
+
         return jsonData;
     };
 
     bool isLoggedIn()
     {
         json data = getCurrentUser();
-        auto res = data["email"].empty();
+        string username = data["username"];
+        auto res = username.length() == 1 ? false : true;
         return res;
     }
 };

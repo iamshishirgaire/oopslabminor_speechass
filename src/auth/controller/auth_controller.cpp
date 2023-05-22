@@ -19,7 +19,7 @@ public:
         _authRepo.logOut();
     };
 
-    string getcurrentUser()
+    json getcurrentUser()
     {
         return _authRepo.getCurrentUser();
     };

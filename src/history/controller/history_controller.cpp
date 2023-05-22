@@ -13,8 +13,18 @@ public:
     vector<json> getHistory(const string &userName)
     {
 
-        return _hr.getHistory(userName);
-    };
+        auto res = _hr.getHistory(userName);
+        if (res.empty())
+        {
+            cout << "No history found";
+            return {};
+        }
+        else
+        {
+            return _hr.getHistory(userName);
+        }
+    }
+
     void postHistory(const string &userName, const json &assessmentResult)
     {
         _hr.postHistory(userName, assessmentResult);

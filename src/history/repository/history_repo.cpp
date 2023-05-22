@@ -12,18 +12,20 @@ class HistoryRepo
 public:
     vector<json> getHistory(const string &userName)
     {
-        ifstream file(historyFile);
-        return FileOperations::readEntireFile(file);
+
+        auto hrFile = FileOperations::openFileForReading(historyFile);
+
+        auto res = FileOperations::readEntireFile(hrFile);
+        FileOperations::closeFile(hrFile);
+        return res;
     };
     void postHistory(const string &userName, const json &assessmentResult)
     {
-        ofstream file(historyFile);
-
-        auto temp = FileOperations::openFileForWriting(historyFile, assessmentResult);
+        auto hrFile = FileOperations::openFileForWriting(historyFile, true);
         json jsonData;
         jsonData["userName"] = userName;
         jsonData["assessmentResult"] = assessmentResult;
-        FileOperations::writeFile(file, jsonData);
-        FileOperations::closeFile(file);
+        FileOperations::writeFile(hrFile, jsonData);
+        FileOperations::closeFile(hrFile);
     };
 };

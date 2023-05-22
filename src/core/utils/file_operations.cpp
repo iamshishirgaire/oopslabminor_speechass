@@ -21,6 +21,7 @@ public:
     static void writeFile(ofstream &infile, const json &content)
     {
         infile << content;
+        infile << "\n";
         infile.close();
     }
     static ifstream openFileForReading(const string &fileName)
@@ -34,6 +35,7 @@ public:
         if (append)
         {
             ofstream file(fileName, ios::app);
+
             return file;
         }
         else

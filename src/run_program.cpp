@@ -8,6 +8,7 @@
 using namespace std;
 class AssessmentProgram
 {
+    AssessmentController _asc;
     AuthController _ac;
     HistoryController _hr;
 
@@ -15,10 +16,12 @@ public:
     void runProgram()
     {
 
+    start:
         bool isLogged = _ac.isLoggedin();
 
-        if (isLogged)
+        if (isLogged == true)
         {
+
             int answer;
             cout << "Select one of the options..............\n";
             cout << "1. Assessment\n";
@@ -27,9 +30,34 @@ public:
             cout << "4. Exit\n";
             cout << "Select your option [1-4] : ";
             cin >> answer;
+            cin.ignore();
+
             if (answer == 1)
             {
-                AssessmentView::viewAssessmentResult(TranscriptionResult(AssessmentController::getAssessmentRes()));
+
+                auto res = _asc.getAssessmentRes();
+                AssessmentView::viewAssessmentResult(TranscriptionResult(res));
+                char ans;
+
+                cout << "Do you want to save this result to your history? [Y/N] : ";
+                cin >> ans;
+                cin.ignore();
+                cout << "hello begins";
+
+                if (ans == 'Y' || ans == 'y')
+                {
+
+                    json user = _ac.getcurrentUser();
+                    cout << "hello";
+                    string name = user["name"];
+                    _hr.postHistory(name, json::parse(res));
+
+                    goto start;
+                }
+                else
+                {
+                    goto start;
+                }
             }
             else if (answer == 2)
             {
@@ -37,12 +65,24 @@ public:
 
                 json user = _ac.getcurrentUser();
                 string name = user["name"];
+                cout << "\nYour history................\n";
                 cout << _hr.getHistory(name);
+                goto start;
             }
             else if (answer == 3)
             {
-                _ac.logout();
-                exit(0);
+                char ans;
+                cout << "Are you sure you want to log out?[Y/N]";
+                cin >> ans;
+                cin.ignore();
+                if (ans == 'Y' || ans == 'y')
+                {
+                    _ac.logout();
+                }
+                else
+                {
+                    goto start;
+                }
             }
             else if (answer == 4)
             {
@@ -52,29 +92,37 @@ public:
             else
             {
                 cout << "Invalid input\n";
+                goto start;
             }
         }
-        else if (!isLogged)
+
+        else
         {
             bool isAlreadyAUser;
             cout << "Already a user ?[Y/N]";
-            string res;
+            char res;
             cin >> res;
-            isAlreadyAUser = res == "Y" || "y" ? true : false;
-            if (!isAlreadyAUser)
+            cin.ignore();
+            isAlreadyAUser = (res == 'Y' || res == 'y') ? true : false;
+            if (isAlreadyAUser == true)
             {
                 cout << "Signing in ......... \n";
 
                 AuthModel user;
                 cout << "Please enter your email : \n";
                 getline(cin, user.email);
+                cin.ignore();
+
                 cout << "\n";
 
                 cout << "Please enter your password : \n";
                 getline(cin, user.password);
+                cin.ignore();
+
                 cout << "\n Signing up .................";
 
                 _ac.signin(user);
+                goto start;
             }
 
             else
@@ -84,16 +132,23 @@ public:
 
                 cout << "Please enter your name : ";
                 getline(cin, user.name);
+                cin.ignore();
+
                 cout << "\n";
                 cout << "Please enter your email : ";
                 getline(cin, user.email);
+                cin.ignore();
+
                 cout << "\n";
 
                 cout << "Please enter your password : ";
                 getline(cin, user.password);
+                cin.ignore();
+
                 cout << "\n Signing in .................";
 
                 AuthController().signup(user);
+                goto start;
             }
         }
     };
