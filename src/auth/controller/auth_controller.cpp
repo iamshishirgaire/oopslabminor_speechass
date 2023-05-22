@@ -23,6 +23,9 @@ public:
     {
         return _authRepo.getCurrentUser();
     };
+    string getcurrentusername(){
+        return _authRepo.getCurrentUsername();
+    }
 
     bool isLoggedin()
     {

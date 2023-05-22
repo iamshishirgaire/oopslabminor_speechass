@@ -131,4 +131,5 @@ public:
             nBest.push_back(nbest);
         }
     };
+    
 };

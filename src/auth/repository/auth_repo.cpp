@@ -9,8 +9,8 @@ using json = nlohmann::json;
 class AuthRepo
 {
     CredentialValidator cv;
-    const string usersFile = "/home/iamshishirg/Documents/oopslabminor_speechass/database/users/users.csv";
-    const string currentAuthStatusFile = "/home/iamshishirg/Documents/oopslabminor_speechass/database/current_auth/current_auth.csv";
+    const string usersFile = "/home/sudipthakur/oopslabminor_speechass/database/users/users.csv";
+    const string currentAuthStatusFile = "/home/sudipthakur/oopslabminor_speechass/database/current_auth/current_auth.csv";
 
 public:
     bool isUserExists(const std::string &email, const std::string &username)
@@ -73,11 +73,12 @@ public:
         while (getline(readFile, line))
         {
             json jsonData = json::parse(line);
-            if (jsonData[email] == email && jsonData[password] == password)
+            if (jsonData["email"] == email && jsonData["password"] == password)
             {
+                
                 json loggedInData;
                 loggedInData["email"] = email;
-                loggedInData["username"] = userName;
+                loggedInData["username"] = jsonData["username"];
                 loggedInData["password"] = password;
                 auto file = FileOperations::openFileForWriting(currentAuthStatusFile, false);
                 FileOperations::writeFile(file, loggedInData);
@@ -104,7 +105,6 @@ public:
         auto res = FileOperations::openFileForReading(currentAuthStatusFile);
         string line = FileOperations::readOneLine(res);
         json jsonData = json::parse(line);
-
         return jsonData;
     };
 
@@ -114,5 +114,12 @@ public:
         string username = data["username"];
         auto res = username.length() == 1 ? false : true;
         return res;
+    }
+    string getCurrentUsername(){
+        auto res = FileOperations::openFileForReading(currentAuthStatusFile);
+        string line = FileOperations::readOneLine(res);
+        json jsonData = json::parse(line);
+        string name =  jsonData["username"];
+        return name;
     }
 };

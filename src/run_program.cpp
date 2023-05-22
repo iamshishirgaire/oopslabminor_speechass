@@ -4,6 +4,9 @@
 #include "auth/controller/auth_controller.cpp"
 #include "core/utils/ass_view.cpp"
 #include "history/controller/history_controller.cpp"
+#include "../ext_lib/json.hpp"
+
+using json = nlohmann::json;
 
 using namespace std;
 class AssessmentProgram
@@ -15,7 +18,6 @@ class AssessmentProgram
 public:
     void runProgram()
     {
-
     start:
         bool isLogged = _ac.isLoggedin();
 
@@ -48,7 +50,6 @@ public:
                 {
 
                     json user = _ac.getcurrentUser();
-                    cout << "hello";
                     string name = user["name"];
                     _hr.postHistory(name, json::parse(res));
 
@@ -64,9 +65,20 @@ public:
                 cout << "Your history : \n";
 
                 json user = _ac.getcurrentUser();
-                string name = user["name"];
+                string username = user["username"];
+                // cout<<username; 
                 cout << "\nYour history................\n";
-                cout << _hr.getHistory(name);
+                // cout<<name;
+                auto res = _hr.getHistory(username);
+                for(int i=0; i<res.size();i++){
+                    if(res[i]["username"] == username){
+                    AssessmentView::viewAssessmentResult(TranscriptionResult(res[i]["result"]));
+                }
+                }
+                
+
+                // cout<<res ;
+                // cout << _hr.getHistory(name);
                 goto start;
             }
             else if (answer == 3)

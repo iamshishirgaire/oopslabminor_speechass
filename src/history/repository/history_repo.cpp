@@ -7,15 +7,15 @@ using json = nlohmann::json;
 
 class HistoryRepo
 {
-    string historyFile = "/home/iamshishirg/Documents/oopslabminor_speechass/database/history/history.csv";
+    string historyFile = "/home/sudipthakur/oopslabminor_speechass/database/history/history.csv";
 
 public:
     vector<json> getHistory(const string &userName)
     {
-
+        
         auto hrFile = FileOperations::openFileForReading(historyFile);
-
         auto res = FileOperations::readEntireFile(hrFile);
+        string user = res[0]["username"];
         FileOperations::closeFile(hrFile);
         return res;
     };

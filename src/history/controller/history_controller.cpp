@@ -12,17 +12,7 @@ class HistoryController
 public:
     vector<json> getHistory(const string &userName)
     {
-
-        auto res = _hr.getHistory(userName);
-        if (res.empty())
-        {
-            cout << "No history found";
-            return {};
-        }
-        else
-        {
-            return _hr.getHistory(userName);
-        }
+        return _hr.getHistory(userName);
     }
 
     void postHistory(const string &userName, const json &assessmentResult)
