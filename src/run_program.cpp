@@ -51,7 +51,7 @@ public:
                     json user = _ac.getcurrentUser();
                     string name = user["username"];
 
-                    _hr.postHistory(name, json::parse(res));
+                    _hr.postHistory(name, res);
 
                     goto start;
                 }
