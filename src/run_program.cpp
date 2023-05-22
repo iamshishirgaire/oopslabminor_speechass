@@ -39,24 +39,25 @@ public:
 
                 auto res = _asc.getAssessmentRes();
                 AssessmentView::viewAssessmentResult(TranscriptionResult(res));
-                char ans;
 
-                cout << "Do you want to save this result to your history? [Y/N] : ";
+                char ans;
+                cout << "Are you sure you want to store this result in history?[Y/N]";
                 cin >> ans;
                 cin.ignore();
-                cout << "hello begins";
 
                 if (ans == 'Y' || ans == 'y')
                 {
 
                     json user = _ac.getcurrentUser();
-                    string name = user["name"];
+                    string name = user["username"];
+
                     _hr.postHistory(name, json::parse(res));
 
                     goto start;
                 }
                 else
                 {
+                    cout << "not ans";
                     goto start;
                 }
             }
@@ -66,16 +67,17 @@ public:
 
                 json user = _ac.getcurrentUser();
                 string username = user["username"];
-                // cout<<username; 
+                // cout<<username;
                 cout << "\nYour history................\n";
                 // cout<<name;
                 auto res = _hr.getHistory(username);
-                for(int i=0; i<res.size();i++){
-                    if(res[i]["username"] == username){
-                    AssessmentView::viewAssessmentResult(TranscriptionResult(res[i]["result"]));
+                for (int i = 0; i < res.size(); i++)
+                {
+                    if (res[i]["username"] == username)
+                    {
+                        AssessmentView::viewAssessmentResult(TranscriptionResult(res[i]["result"]));
+                    }
                 }
-                }
-                
 
                 // cout<<res ;
                 // cout << _hr.getHistory(name);
@@ -90,6 +92,7 @@ public:
                 if (ans == 'Y' || ans == 'y')
                 {
                     _ac.logout();
+                    goto start;
                 }
                 else
                 {

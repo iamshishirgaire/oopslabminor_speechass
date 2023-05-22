@@ -20,8 +20,7 @@ public:
     }
     static void writeFile(ofstream &infile, const json &content)
     {
-        infile << content;
-        infile << "\n";
+        infile << content << endl;
         infile.close();
     }
     static ifstream openFileForReading(const string &fileName)

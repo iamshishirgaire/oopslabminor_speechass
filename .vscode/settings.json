@@ -5,6 +5,7 @@
     "regex": "cpp",
     "iosfwd": "cpp",
     "fstream": "cpp",
-    "iostream": "cpp"
+    "iostream": "cpp",
+    "*.tcc": "cpp"
   }
 }
