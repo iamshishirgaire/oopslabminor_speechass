@@ -5,6 +5,7 @@
 #include "core/utils/ass_view.cpp"
 #include "history/controller/history_controller.cpp"
 #include "../ext_lib/json.hpp"
+#include "core/utils/disable_terminal.cpp"
 
 using json = nlohmann::json;
 
@@ -132,7 +133,8 @@ public:
 
                 cout << "Please enter your password : \n";
                 getline(cin, user.password);
-                cin.ignore();
+                // user.password = getPassword();
+                // cin.ignore();
 
                 cout << "\n Signing up .................";
 
