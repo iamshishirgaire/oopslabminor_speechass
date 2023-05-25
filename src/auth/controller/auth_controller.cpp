@@ -10,9 +10,9 @@ public:
     {
         _authRepo.signUp(user.email, user.password, user.name);
     };
-    void signin(AuthModel &user)
+    bool signin(AuthModel &user)
     {
-        _authRepo.signIn(user.email, user.password, user.name);
+        return _authRepo.signIn(user.email, user.password, user.name);
     };
     void logout()
     {
@@ -23,7 +23,8 @@ public:
     {
         return _authRepo.getCurrentUser();
     };
-    string getcurrentusername(){
+    string getcurrentusername()
+    {
         return _authRepo.getCurrentUsername();
     }
 

@@ -64,10 +64,9 @@ public:
             FileOperations::closeFile(AuthFile);
         }
     }
-    void signIn(const string &email, const string &password, const string &userName)
+    bool signIn(const string &email, const string &password, const string &userName)
     {
 
-        // TODO :  refactor the signup logic
         auto readFile = FileOperations::openFileForReading(usersFile);
         string line;
         while (getline(readFile, line))
@@ -75,7 +74,6 @@ public:
             json jsonData = json::parse(line);
             if (jsonData["email"] == email && jsonData["password"] == password)
             {
-
                 json loggedInData;
                 loggedInData["email"] = email;
                 loggedInData["username"] = jsonData["username"];
@@ -83,9 +81,14 @@ public:
                 auto file = FileOperations::openFileForWriting(currentAuthStatusFile, false);
                 FileOperations::writeFile(file, loggedInData);
                 FileOperations::closeFile(file);
+                return true;
             }
         }
-    };
+
+        cout << "\n\nCould not match credentials. Please enter valid credentials!!";
+        return false;
+    }
+
     void logOut()
     {
         json jsonData;

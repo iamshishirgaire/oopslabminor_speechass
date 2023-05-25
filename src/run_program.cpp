@@ -20,13 +20,17 @@ public:
     void runProgram()
     {
     start:
+        clear();
+
+        cout << "\n \n Welcome to Assessment Program" << endl;
         bool isLogged = _ac.isLoggedin();
 
         if (isLogged == true)
         {
+            clear();
 
             int answer;
-            cout << "Select one of the options..............\n";
+            cout << "\nSelect one of the options..............\n";
             cout << "1. Assessment\n";
             cout << "2. History\n";
             cout << "3. Logout\n";
@@ -37,28 +41,18 @@ public:
 
             if (answer == 1)
             {
-
                 auto res = _asc.getAssessmentRes();
                 AssessmentView::viewAssessmentResult(TranscriptionResult(res));
-
                 char ans;
                 cout << "Are you sure you want to store this result in history?[Y/N]";
                 cin >> ans;
-                cin.ignore();
-
                 if (ans == 'Y' || ans == 'y')
                 {
-
-                    json user = _ac.getcurrentUser();
-                    string name = user["username"];
-
-                    _hr.postHistory(name, res);
-
+                    _hr.postHistory(res);
                     goto start;
                 }
                 else
                 {
-                    cout << "not ans";
                     goto start;
                 }
             }
@@ -68,28 +62,33 @@ public:
 
                 json user = _ac.getcurrentUser();
                 string username = user["username"];
-                // cout<<username;
                 cout << "\nYour history................\n";
-                // cout<<name;
                 auto res = _hr.getHistory(username);
-                for (int i = 0; i < res.size(); i++)
+
+                if (res.empty())
                 {
-                    if (res[i]["username"] == username)
+                    cout << "\n No history found.\n";
+                    goto start;
+                }
+                else
+                {
+                    for (int i = 0; i < res.size(); i++)
                     {
+
+                        cout << "\n"
+                             << i + 1 << ".\n ";
                         AssessmentView::viewAssessmentResult(TranscriptionResult(res[i]["result"]));
                     }
                 }
 
-                // cout<<res ;
-                // cout << _hr.getHistory(name);
+                cin.get();
                 goto start;
             }
             else if (answer == 3)
             {
                 char ans;
-                cout << "Are you sure you want to log out?[Y/N]";
+                cout << "\nAre you sure you want to log out?[Y/N]:";
                 cin >> ans;
-                cin.ignore();
                 if (ans == 'Y' || ans == 'y')
                 {
                     _ac.logout();
@@ -115,31 +114,35 @@ public:
         else
         {
             bool isAlreadyAUser;
-            cout << "Already a user ?[Y/N]";
+            cout << "\n Already a user ?[Y/N]:";
             char res;
             cin >> res;
-            cin.ignore();
             isAlreadyAUser = (res == 'Y' || res == 'y') ? true : false;
-            if (isAlreadyAUser == true)
+            if (isAlreadyAUser)
             {
-                cout << "Signing in ......... \n";
+                cout << "......................................................... ";
+                cout << "\nSigning In ......... ";
 
+            signin:
                 AuthModel user;
-                cout << "Please enter your email : \n";
-                getline(cin, user.email);
-                cin.ignore();
+                cout << "\n\nPlease enter your email :";
+                cin >> user.email;
+                cout << "\nPlease enter your password :";
+                user.password = getPassword();
+                cout << " ......................................................... ";
+                cout << "\nSigning up .................";
+                bool res = _ac.signin(user);
+                if (res)
+                {
 
-                cout << "\n";
+                    cout << "Sign in Successful!\n";
+                    goto start;
+                }
 
-                cout << "Please enter your password : \n";
-                getline(cin, user.password);
-                // user.password = getPassword();
-                // cin.ignore();
-
-                cout << "\n Signing up .................";
-
-                _ac.signin(user);
-                goto start;
+                else
+                {
+                    goto signin;
+                }
             }
 
             else
@@ -159,8 +162,7 @@ public:
                 cout << "\n";
 
                 cout << "Please enter your password : ";
-                getline(cin, user.password);
-                cin.ignore();
+                user.password = getPassword();
 
                 cout << "\n Signing in .................";
 

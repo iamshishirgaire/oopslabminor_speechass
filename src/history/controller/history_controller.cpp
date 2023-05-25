@@ -15,8 +15,8 @@ public:
         return _hr.getHistory(userName);
     }
 
-    void postHistory(const string &userName, const json &assessmentResult)
+    void postHistory(const json &assessmentResult)
     {
-        _hr.postHistory(userName, assessmentResult);
+        _hr.postHistory(assessmentResult);
     };
 };
