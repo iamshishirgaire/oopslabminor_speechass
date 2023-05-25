@@ -6,6 +6,7 @@
 #include "history/controller/history_controller.cpp"
 #include "../ext_lib/json.hpp"
 #include "core/utils/disable_terminal.cpp"
+#include "core/utils/colors.cpp"
 
 using json = nlohmann::json;
 
@@ -15,6 +16,7 @@ class AssessmentProgram
     AssessmentController _asc;
     AuthController _ac;
     HistoryController _hr;
+    ColorPalette _cp;
 
 public:
     void runProgram()
@@ -22,15 +24,14 @@ public:
     start:
         clear();
 
-        cout << "\n \n Welcome to Assessment Program" << endl;
+        cout << _cp.Red << "\n\n...........Welcome to Assessment Program.............." << _cp.Reset << endl;
         bool isLogged = _ac.isLoggedin();
 
         if (isLogged == true)
         {
-            clear();
 
             int answer;
-            cout << "\nSelect one of the options..............\n";
+            cout << "\nSelect one of the options:\n";
             cout << "1. Assessment\n";
             cout << "2. History\n";
             cout << "3. Logout\n";
@@ -42,7 +43,7 @@ public:
             if (answer == 1)
             {
                 auto res = _asc.getAssessmentRes();
-                AssessmentView::viewAssessmentResult(TranscriptionResult(res));
+                AssessmentView().viewAssessmentResult(TranscriptionResult(res));
                 char ans;
                 cout << "Are you sure you want to store this result in history?[Y/N]";
                 cin >> ans;
@@ -58,7 +59,6 @@ public:
             }
             else if (answer == 2)
             {
-                cout << "Your history : \n";
 
                 json user = _ac.getcurrentUser();
                 string username = user["username"];
@@ -67,7 +67,9 @@ public:
 
                 if (res.empty())
                 {
-                    cout << "\n No history found.\n";
+                    cout << "\nNo history found.\n";
+                    cout << "\nPress a key to continue: ";
+                    cin.get();
                     goto start;
                 }
                 else
@@ -77,7 +79,7 @@ public:
 
                         cout << "\n"
                              << i + 1 << ".\n ";
-                        AssessmentView::viewAssessmentResult(TranscriptionResult(res[i]["result"]));
+                        AssessmentView().viewAssessmentResult(TranscriptionResult(res[i]["result"]));
                     }
                 }
 
@@ -147,26 +149,35 @@ public:
 
             else
             {
-                cout << "Signing up ......... \n";
+                cout << "\nSigning up";
                 AuthModel user;
+                string password1, password2;
 
-                cout << "Please enter your name : ";
-                getline(cin, user.name);
-                cin.ignore();
+                cout << "\nPlease enter your name : ";
+                cin >> user.name;
 
-                cout << "\n";
-                cout << "Please enter your email : ";
-                getline(cin, user.email);
-                cin.ignore();
+                cout << "\nPlease enter your email : ";
+                cin >> user.email;
 
-                cout << "\n";
+            again:
+                cout << "\nPlease enter your password :";
+                password1 = getPassword();
 
-                cout << "Please enter your password : ";
-                user.password = getPassword();
+                cout << "\nEnter your password again : ";
+                password2 = getPassword();
 
-                cout << "\n Signing in .................";
+                if (password1 == password2)
+                {
+                    user.password = password1;
+                    cout << "\nSigning in:";
+                    AuthController().signup(user);
+                }
+                else
+                {
+                    cout << "\nPasswords do not match. Please re-enter:";
+                    goto again;
+                }
 
-                AuthController().signup(user);
                 goto start;
             }
         }

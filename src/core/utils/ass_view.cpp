@@ -3,13 +3,17 @@
 //
 
 #include "iostream"
+#include "colors.cpp"
 #include "../../assm_result/model/ass_model.cpp"
 using namespace std;
 
 class AssessmentView
 {
+
+    ColorPalette _cp;
+
 public:
-    static void viewAssessmentResult(const TranscriptionResult &trs)
+    void viewAssessmentResult(const TranscriptionResult &trs)
     {
         cout << "--------------------------------Assessment Result------------------------------------------" << endl;
 
@@ -31,11 +35,11 @@ public:
         for (auto &wrd : words)
         {
 
-            cout << "               Word : " << wrd.Word << endl;
-            cout << "               Pronunciation Score : " << wrd.Pronunciation.PronScore << endl;
-            cout << "               Completeness Score : " << wrd.Pronunciation.CompletenessScore << endl;
-            cout << "               Fluency Score : " << wrd.Pronunciation.FluencyScore << endl;
-            cout << "               Error type : " << wrd.Pronunciation.ErrorType << endl;
+            cout << _cp.Green << "               Word : " << wrd.Word << _cp.Green << endl;
+            cout << _cp.Red << "               Pronunciation Score : " << wrd.Pronunciation.PronScore << _cp.Reset << endl;
+            cout << _cp.Red << "               Completeness Score : " << wrd.Pronunciation.CompletenessScore << _cp.Reset << endl;
+            cout << _cp.Red << "               Fluency Score : " << wrd.Pronunciation.FluencyScore << _cp.Reset << endl;
+            cout << _cp.Red << "               Error type : " << wrd.Pronunciation.ErrorType << _cp.Reset << endl;
             auto syllables = wrd.Syllables;
 
             for (auto &syll : syllables)

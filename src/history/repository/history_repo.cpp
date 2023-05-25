@@ -3,31 +3,43 @@
 #include "string"
 #include "../../core/utils/file_operations.cpp"
 using namespace std;
+#include "filesystem"
+namespace fs = std::filesystem;
 using json = nlohmann::json;
 
 class HistoryRepo
 {
-    string historyFile = "/home/iamshishirg/Documents/oopslabminor_speechass/database/history/history.csv";
+    string historyFile = "/home/iamshishirg/Documents/oopslabminor_speechass/.database/history/history.db";
     AuthController _ac;
 
 public:
     vector<json> getHistory(const string &userName)
     {
+
         vector<json> result;
 
-        auto hrFile = FileOperations::openFileForReading(historyFile);
-        auto res = FileOperations::readEntireFile(hrFile);
-        string user = res[0]["username"];
-        FileOperations::closeFile(hrFile);
-
-        for (int i = 0; i < res.size(); i++)
+        if (fs::is_empty(historyFile))
         {
-            if (res[i]["username"] == userName)
-            {
-                result.push_back(res[i]);
-            }
+
+            return result;
         }
-        return result;
+        else
+        {
+
+            auto hrFile = FileOperations::openFileForReading(historyFile);
+            auto res = FileOperations::readEntireFile(hrFile);
+            string user = res[0]["username"];
+            FileOperations::closeFile(hrFile);
+
+            for (int i = 0; i < res.size(); i++)
+            {
+                if (res[i]["username"] == userName)
+                {
+                    result.push_back(res[i]);
+                }
+            }
+            return result;
+        }
     };
     void postHistory(const json &assessmentResult)
     {

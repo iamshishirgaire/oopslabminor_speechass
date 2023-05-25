@@ -3,14 +3,17 @@
 #include "iostream"
 #include "../../core/utils/file_operations.cpp"
 #include "../../core/validators/credentials_validator.cpp"
+#include "filesystem"
+namespace fs = std::filesystem;
 using namespace std;
+
 using json = nlohmann::json;
 
 class AuthRepo
 {
     CredentialValidator cv;
-    const string usersFile = "/home/iamshishirg/Documents/oopslabminor_speechass/database/users/users.csv";
-    const string currentAuthStatusFile = "/home/iamshishirg/Documents/oopslabminor_speechass/database/current_auth/current_auth.csv";
+    const string usersFile = "/home/iamshishirg/Documents/oopslabminor_speechass/.database/users/users.db";
+    const string currentAuthStatusFile = "/home/iamshishirg/Documents/oopslabminor_speechass/.database/current_auth/current_auth.db";
 
 public:
     bool isUserExists(const std::string &email, const std::string &username)
@@ -104,11 +107,24 @@ public:
     };
 
     json getCurrentUser()
+
     {
+
         auto res = FileOperations::openFileForReading(currentAuthStatusFile);
         string line = FileOperations::readOneLine(res);
-        json jsonData = json::parse(line);
-        return jsonData;
+        if (fs::is_empty(currentAuthStatusFile))
+        {
+
+            json jsonData;
+            jsonData["username"] = " ";
+            return jsonData;
+        }
+        else
+        {
+
+            json jsonData = json::parse(line);
+            return jsonData;
+        }
     };
 
     bool isLoggedIn()
