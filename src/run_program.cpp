@@ -153,7 +153,7 @@ public:
                 AuthModel user;
                 string password1, password2;
 
-                cout << "\nPlease enter your name : ";
+                cout << "\nPlease enter your Username : ";
                 cin >> user.name;
 
                 cout << "\nPlease enter your email : ";

@@ -8,6 +8,18 @@ class AssessmentController
 public:
     static string getAssessmentRes()
     {
-        return getRes();
-    };
+
+        try
+
+        {
+            return getRes();
+            
+        
+        }
+        catch (...)
+        {
+
+            return " ";
+        }
+    }
 };
