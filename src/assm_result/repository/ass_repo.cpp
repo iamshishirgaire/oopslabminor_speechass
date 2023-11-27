@@ -11,7 +11,7 @@ using namespace Microsoft::CognitiveServices::Speech::Audio;
 string getRes()
 {
     // This example requires environment variables named "SPEECH_KEY" and "SPEECH_REGION"
-    auto speechKey = "1751c5d21b2241ac96c610c759b9d33e";
+    auto speechKey = "REPLACE YOUR KEY";
     auto speechRegion = "southeastasia";
 
     string jsonResult;
